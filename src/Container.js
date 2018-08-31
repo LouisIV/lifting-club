@@ -56,10 +56,10 @@ class Container extends Component {
   getLocation(callback) {
     console.log("Checking permissions");
     if (navigator.geolocation) {
-      console.log("Getting current position");
+      alert("Getting current position");
       navigator.geolocation.getCurrentPosition(callback);
     } else {
-      console.log("Geolocation is not supported by this browser.");
+      alert("Geolocation is not supported by this browser.");
     }
   }
 

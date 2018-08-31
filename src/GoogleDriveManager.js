@@ -26,12 +26,9 @@ export const submitForm = formResponses => {
   // Encode each of the responses
   const encodedStrings = [];
   Object.keys(formResponses).forEach(item => {
-    const responsePair = formResponses[item];
+    const value = formResponses[item];
     const encodedString =
-      formQuestions[responsePair.key] +
-      "=" +
-      +encodeURIComponent(responsePair.value) +
-      "&";
+      formQuestions[item] + "=" + +encodeURIComponent(value) + "&";
 
     // Append the values string
     encodedStrings.push(encodedString);
