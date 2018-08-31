@@ -1,0 +1,30 @@
+{
+  "name": "pike-lifting-club",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.4",
+    "@fortawesome/free-solid-svg-icons": "^5.3.1",
+    "@fortawesome/pro-light-svg-icons": "^5.1.0-11",
+    "@fortawesome/pro-regular-svg-icons": "^5.1.0-11",
+    "@fortawesome/pro-solid-svg-icons": "^5.1.0-11",
+    "@fortawesome/react-fontawesome": "^0.1.2",
+    "dns": "^0.2.2",
+    "google-drive": "0.0.8",
+    "google-map-react": "^1.0.6",
+    "i": "^0.3.6",
+    "npm": "^5.10.0",
+    "react": "^16.2.0",
+    "react-cookie": "^2.1.2",
+    "react-dom": "^16.2.0",
+    "react-qr-reader": "^2.0.1",
+    "react-scripts": "1.1.0",
+    "request": "^2.88.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
