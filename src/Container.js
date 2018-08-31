@@ -15,6 +15,14 @@ function degreesToRads(degrees) {
   return degrees * (pi / 180);
 }
 
+function getLocationVanilla() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(this.gotLocation);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
 // How close do you have to be to Baun? (meters)
 const MIN_DIST_BAUN = 250;
 
@@ -91,7 +99,7 @@ class Container extends Component {
     console.log(`a: ${a}`);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = radius * c; // Distance in km
-    this.setState({ meters: Math.round(d * 1000) });
+    this.setState({ meters: Math.round(d * 1000), checkingLocation: false });
   }
 
   render() {
@@ -124,6 +132,10 @@ class Container extends Component {
             {this.state.meters !== -500 ? (
               this.state.meters <= MIN_DIST_BAUN ? (
                 "Have a good workout!"
+              ) : this.state.checkingLocation ? (
+                <div>
+                  Finding you <FontAwesomeIcon icon={faSpinnerThird} spin />
+                </div>
               ) : (
                 `${this.state.meters} Meters from Baun`
               )
@@ -147,6 +159,7 @@ class Container extends Component {
           <button
             className="button"
             onClick={() => {
+              getLocationVanilla();
               this.setState({ checkingLocation: true });
               this.getLocation();
             }}
