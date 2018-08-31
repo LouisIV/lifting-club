@@ -47,7 +47,11 @@ class Container extends Component {
 
   componentDidMount() {
     if (navigator.geolocation) {
+      alert("Calling getCurrentPosition");
+      this.setState({ checkingLocation: true });
       navigator.geolocation.getCurrentPosition(this.gotLocation);
+    } else {
+      alert("Cannot fetch your location");
     }
   }
 
@@ -59,15 +63,13 @@ class Container extends Component {
     this.setState({ email });
   }
 
-  // getLocation(callback) {
-  //   console.log("Checking permissions");
-  //   if (navigator.geolocation) {
-  //     alert("Getting current position");
-  //     navigator.geolocation.getCurrentPosition(callback);
-  //   } else {
-  //     alert("Geolocation is not supported by this browser.");
-  //   }
-  // }
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.gotLocation);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
 
   gotLocation(position) {
     console.log("got location");
@@ -136,20 +138,21 @@ class Container extends Component {
           <input
             type="text"
             placeholder={"email"}
+            value={this.state.email}
             onChange={this.handleEmailChange}
           />
         </div>
 
         <div className="buttons">
-          {/* <button
+          <button
             className="button"
             onClick={() => {
               this.setState({ checkingLocation: true });
-              this.getLocation(this.gotLocation);
+              this.getLocation();
             }}
           >
             Check my location
-          </button> */}
+          </button>
           <button
             onClick={() => {
               submitForm({
