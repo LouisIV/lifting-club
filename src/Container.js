@@ -17,7 +17,11 @@ function degreesToRads(degrees) {
 
 function getLocationVanilla() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(this.gotLocation);
+    navigator.geolocation.getCurrentPosition(position => {
+      alert(
+        `Lat: ${position.coords.latitude}, Long: ${position.coords.longitude}`
+      );
+    });
   } else {
     alert("Geolocation is not supported by this browser.");
   }
