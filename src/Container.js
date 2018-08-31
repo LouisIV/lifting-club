@@ -30,6 +30,7 @@ class Container extends Component {
       meters: -500,
       checkingLocation: false
     };
+    this.getLocation = this.getLocation.bind(this);
     this.gotLocation = this.gotLocation.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
   }
@@ -44,8 +45,6 @@ class Container extends Component {
     }
   }
 
-  componentDidMount() {}
-
   handleEmailChange(event) {
     let email = event.target.value.toLowerCase();
     const { cookies } = this.props;
@@ -54,7 +53,18 @@ class Container extends Component {
     this.setState({ email });
   }
 
+  getLocation(callback) {
+    console.log("Checking permissions");
+    if (navigator.geolocation) {
+      console.log("Getting current position");
+      navigator.geolocation.getCurrentPosition(callback);
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
   gotLocation(position) {
+    console.log("got location");
     const lat1 = position.coords.latitude;
     const lon1 = position.coords.longitude;
 
@@ -114,29 +124,7 @@ class Container extends Component {
                 Finding you <FontAwesomeIcon icon={faSpinnerThird} spin />
               </div>
             ) : (
-              <button
-                className="button"
-                onClick={() => {
-                  console.log("Fetching location");
-                  this.setState({ checkingLocation: true });
-                  if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                      position => {
-                        this.gotLocation(position);
-                      },
-                      error => {
-                        console.log(error);
-                      }
-                    );
-                  } else {
-                    console.log(
-                      "Geolocation is not supported by this browser."
-                    );
-                  }
-                }}
-              >
-                Check my location
-              </button>
+              <span>Check your Location</span>
             )}
           </span>
           <input
@@ -147,6 +135,15 @@ class Container extends Component {
         </div>
 
         <div className="buttons">
+          <button
+            className="button"
+            onClick={() => {
+              this.setState({ checkingLocation: true });
+              this.getLocation(this.gotLocation);
+            }}
+          >
+            Check my location
+          </button>
           <button
             onClick={() => {
               submitForm({
