@@ -30,7 +30,7 @@ class Container extends Component {
       meters: -500,
       checkingLocation: false
     };
-    this.getLocation = this.getLocation.bind(this);
+    // this.getLocation = this.getLocation.bind(this);
     this.gotLocation = this.gotLocation.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
   }
@@ -45,6 +45,12 @@ class Container extends Component {
     }
   }
 
+  componentDidMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.gotLocation);
+    }
+  }
+
   handleEmailChange(event) {
     let email = event.target.value.toLowerCase();
     const { cookies } = this.props;
@@ -53,15 +59,15 @@ class Container extends Component {
     this.setState({ email });
   }
 
-  getLocation(callback) {
-    console.log("Checking permissions");
-    if (navigator.geolocation) {
-      alert("Getting current position");
-      navigator.geolocation.getCurrentPosition(callback);
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
+  // getLocation(callback) {
+  //   console.log("Checking permissions");
+  //   if (navigator.geolocation) {
+  //     alert("Getting current position");
+  //     navigator.geolocation.getCurrentPosition(callback);
+  //   } else {
+  //     alert("Geolocation is not supported by this browser.");
+  //   }
+  // }
 
   gotLocation(position) {
     console.log("got location");
@@ -135,7 +141,7 @@ class Container extends Component {
         </div>
 
         <div className="buttons">
-          <button
+          {/* <button
             className="button"
             onClick={() => {
               this.setState({ checkingLocation: true });
@@ -143,7 +149,7 @@ class Container extends Component {
             }}
           >
             Check my location
-          </button>
+          </button> */}
           <button
             onClick={() => {
               submitForm({
