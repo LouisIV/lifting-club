@@ -44,6 +44,6 @@ export const submitForm = formResponses => {
     ...encodedStrings,
     SUBMIT_STRING
   );
-
+  console.log(submissionString);
   request.post({ url: submissionString }, handleServerResponse);
 };
