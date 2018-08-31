@@ -17,11 +17,16 @@ function degreesToRads(degrees) {
 
 function getLocationVanilla() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-      alert(
-        `Lat: ${position.coords.latitude}, Long: ${position.coords.longitude}`
-      );
-    });
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        alert(
+          `Lat: ${position.coords.latitude}, Long: ${position.coords.longitude}`
+        );
+      },
+      error => {
+        alert(`${error}`);
+      }
+    );
   } else {
     alert("Geolocation is not supported by this browser.");
   }
@@ -58,6 +63,7 @@ class Container extends Component {
   }
 
   componentDidMount() {
+    /*
     if (navigator.geolocation) {
       alert("Calling getCurrentPosition");
       this.setState({ checkingLocation: true });
@@ -65,6 +71,7 @@ class Container extends Component {
     } else {
       alert("Cannot fetch your location");
     }
+    */
   }
 
   handleEmailChange(event) {
