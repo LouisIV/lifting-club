@@ -27,7 +27,8 @@ class Container extends Component {
     super(props);
     this.state = {
       email: "NOT SET",
-      meters: -500
+      meters: -500,
+      checkingLocation: false
     };
     this.gotLocation = this.gotLocation.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -43,21 +44,7 @@ class Container extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log("Fetching location");
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          this.gotLocation(position);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  }
+  componentDidMount() {}
 
   handleEmailChange(event) {
     let email = event.target.value.toLowerCase();
@@ -122,10 +109,34 @@ class Container extends Component {
               ) : (
                 `${this.state.meters} Meters from Baun`
               )
-            ) : (
+            ) : this.state.checkingLocation ? (
               <div>
                 Finding you <FontAwesomeIcon icon={faSpinnerThird} spin />
               </div>
+            ) : (
+              <button
+                className="button"
+                onClick={() => {
+                  console.log("Fetching location");
+                  this.setState({ checkingLocation: true });
+                  if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                      position => {
+                        this.gotLocation(position);
+                      },
+                      error => {
+                        console.log(error);
+                      }
+                    );
+                  } else {
+                    console.log(
+                      "Geolocation is not supported by this browser."
+                    );
+                  }
+                }}
+              >
+                Check my location
+              </button>
             )}
           </span>
           <input
@@ -159,6 +170,19 @@ class Container extends Component {
             className="button"
           >
             <span className="centered">Check Out</span>
+          </button>
+          <button
+            onClick={() => {
+              window.open(
+                "https://docs.google.com/spreadsheets/d/15cDq44RLH83StgCC8wA9VoS_Aytm6d4RAmMJ5_8YT-I/edit?usp=sharing"
+              );
+            }}
+            style={{ backgroundColor: "transparent" }}
+            className="button"
+          >
+            <span className="centered" style={{ color: "white" }}>
+              View Hours
+            </span>
           </button>
         </div>
       </div>
